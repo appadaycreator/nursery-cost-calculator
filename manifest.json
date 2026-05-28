@@ -1,8 +1,9 @@
 {
   "name": "Nursery Cost Calculator",
   "short_name": "nursery-cost",
-  "start_url": "/",
+  "start_url": "/nursery-cost-calculator/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#6366f1"
+  "theme_color": "#6366f1",
+  "scope": "/nursery-cost-calculator/"
 }
