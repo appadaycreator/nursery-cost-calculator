@@ -201,6 +201,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!important;height:0!important}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://appadaycreator.com/"},{"@type":"ListItem","position":2,"name":"計算機/お金","item":"https://appadaycreator.com/category/finance/"},{"@type":"ListItem","position":3,"name":"保育園・幼稚園費用計算【無料】簡単・無料計算","item":"https://appadaycreator.com/nursery-cost-calculator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"「保育園・幼稚園費用計算」は無料で使えますか？","acceptedAnswer":{"@type":"Answer","text":"はい、完全無料・登録不要です。"}},{"@type":"Question","name":"スマートフォンでも使えますか？","acceptedAnswer":{"@type":"Answer","text":"はい、モバイル対応済みです。"}}]}</script>
 </head>
 <body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -317,6 +318,10 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
               </select>
               <small id="order-help" style="color:#6b7280;font-size:12px;margin-top:2px;display:block;">※ 公式制度。自治体によって詳細が異なります</small>
 
+              <label for="goalAmount" style="margin-top:12px;">目標月額（円）<span class="tooltip-icon">?<span class="tooltip-text">「月額●円以内に抑えたい」という目標を設定して、達成度を確認できます。目標を設定すると、毎回の計算時に前回との比較も表示されます。</span></span></label>
+              <input type="number" id="goalAmount" placeholder="例: 25000（円）" min="0" max="999999" aria-describedby="goal-help">
+              <small id="goal-help" style="color:#6b7280;font-size:12px;margin-top:2px;display:block;">※ 目標設定は任意です。設定するとご利用の改善にお役立ていただけます。</small>
+
               <div style="display:flex;gap:8px;margin-top:20px;">
                 <button class="btn btn-accent" onclick="calculate()" style="flex:1;font-size:17px;">無料で計算する</button>
                 <button class="btn-sub" onclick="resetForm()" aria-label="入力をリセット">リセット</button>
@@ -365,6 +370,21 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
                 <div style="text-align:center;padding:8px 0 4px;">
                   <div id="output" style="font-size:2rem;font-weight:700;color:var(--primary);"></div>
                   <div id="freeBadge"></div>
+                </div>
+
+                <!-- Goal achievement tracker -->
+                <div id="goalTrackerBox" style="display:none;background:#f0f9ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 16px;margin:14px 0">
+                  <div style="font-size:12px;color:#1e40af;font-weight:600;margin-bottom:8px;">📊 目標達成度</div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                    <span style="font-size:13px;color:#1e3a5f">目標月額：<span id="goalAmountDisplay">—</span>円</span>
+                    <span style="font-size:13px;color:#1e3a5f;font-weight:600">達成度：<span id="achievementPercent">—</span>%</span>
+                  </div>
+                  <div style="width:100%;height:12px;background:#d1e9f6;border-radius:6px;overflow:hidden">
+                    <div id="achievementBar" style="height:100%;background:#3b82f6;width:0%;transition:width .5s ease;border-radius:6px"></div>
+                  </div>
+                  <div id="prevCompareBox" style="margin-top:10px;font-size:11px;color:#1e3a5f;text-align:center;display:none;">
+                    <span id="prevCompareText">—</span>
+                  </div>
                 </div>
 
                 <!-- Savings highlight -->
@@ -526,9 +546,12 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
 </div>
 <h2 id="faq-h" style="font-size:1.05rem;font-weight:700;margin-bottom:12px;border-left:4px solid #4f46e5;padding-left:10px;">よくある質問</h2>
   <dl style="line-height:1.8;">
-    
-    
-    
+    <dt style="font-weight:600;color:#1e293b;padding:8px 0 4px">Q. 保育料無償化の対象は誰ですか？</dt>
+    <dd style="font-size:.875rem;color:#475569;margin:0 0 12px;padding-left:12px;line-height:1.8">幼児教育・保育の無償化（2019年10月〜）の対象として「3〜5歳：認可保育園・幼稚園・認定こども園を利用する全ての子どもが対象（所得制限なし）」「0〜2歳：住民税非課税世帯のみ無償化対象」があります。無償化の対象外になるものとして「給食費（主食費・副食費）：一定の所得以上の世帯では自己負担（月4,500〜6,000円程度）」「入園料・通園バス代・課外活動費・制服代など」があります。認可外保育施設でも「認可外保育施設指導監督基準を満たす施設」は3〜5歳で月37,000円まで無償化対象です。</dd>
+    <dt style="font-weight:600;color:#1e293b;padding:8px 0 4px">Q. 認可保育所と認可外保育の費用の違いは？</dt>
+    <dd style="font-size:.875rem;color:#475569;margin:0 0 12px;padding-left:12px;line-height:1.8">認可保育所（認可保育園・こども園）と認可外保育施設の費用の主な違いとして「認可保育所：保育料は世帯の住民税額に応じて自治体が決定・3〜5歳は無償化」「認可外保育施設：施設が独自に料金を設定・月3〜10万円程度・英語保育・小規模保育等は高めの料金設定が多い」があります。認可保育所は所得に応じた費用負担のため、低所得世帯ほど実質的な負担が少なくなります。認可外では「企業主導型保育事業（国の補助金を受けた施設）」は比較的費用が安いケースがあります。</dd>
+    <dt style="font-weight:600;color:#1e293b;padding:8px 0 4px">Q. 育休明けに保育園に落ちた場合はどうなりますか？</dt>
+    <dd style="font-size:.875rem;color:#475569;margin:0 0 12px;padding-left:12px;line-height:1.8">育休明けに保育園に入れなかった場合の対応として「育児休業の延長申請：1歳時点で保育所に入れなかった場合、最大2歳まで育休を延長できる（育児休業給付金も継続して受け取れる）」「育休延長の際は「不承諾通知（入所できなかった旨の証明）」が必要・市区町村から発行してもらう」があります。2025年現在、「育休取得目的での意図的な不承諾申請（落ちる前提で申請）」に対して自治体の審査が厳しくなっている場合があります。希望する施設への本気の申し込みを行いつつ、万一の場合の延長手続きについて会社・市区町村に早めに確認することが重要です。</dd>
   </dl>
 </section>
 <!-- r27-tool-guide -->
@@ -696,6 +719,37 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
       // メイン表示
       document.getElementById('output').textContent = totalMonthly.toLocaleString() + ' 円/月';
 
+      // 目標達成度トラッキング
+      const goalAmountEl = document.getElementById('goalAmount');
+      const goalAmount = goalAmountEl && goalAmountEl.value ? parseInt(goalAmountEl.value) : 0;
+      const goalTrackerBox = document.getElementById('goalTrackerBox');
+      if (goalAmount > 0 && goalTrackerBox) {
+        const achievementRate = Math.round((totalMonthly / goalAmount) * 100);
+        const achievementPercent = document.getElementById('achievementPercent');
+        const achievementBar = document.getElementById('achievementBar');
+        const goalAmountDisplay = document.getElementById('goalAmountDisplay');
+        if (achievementPercent) achievementPercent.textContent = Math.min(achievementRate, 100);
+        if (achievementBar) achievementBar.style.width = Math.min(achievementRate, 100) + '%';
+        if (goalAmountDisplay) goalAmountDisplay.textContent = goalAmount.toLocaleString();
+        goalTrackerBox.style.display = 'block';
+        // 前回の達成度との比較
+        try {
+          const prevData = JSON.parse(localStorage.getItem('ncalc_goal_result') || '{}');
+          if (prevData.prevAchievementRate !== undefined) {
+            const diff = achievementRate - prevData.prevAchievementRate;
+            const diffText = diff > 0 ? `前回比 +${diff}%（増加）` : diff < 0 ? `前回比 ${diff}%（改善）` : '前回と同じ達成度';
+            const prevCompareBox = document.getElementById('prevCompareBox');
+            const prevCompareText = document.getElementById('prevCompareText');
+            if (prevCompareBox && prevCompareText) {
+              prevCompareBox.style.display = 'block';
+              prevCompareText.textContent = diffText;
+            }
+          }
+        } catch(e) {}
+      } else {
+        goalTrackerBox.style.display = 'none';
+      }
+
       const badge = document.getElementById('freeBadge');
       if (isFree3to5 && childOrder >= 3) {
         badge.innerHTML = '<span class="free-badge">✨ 幼児教育無償化 ＋ 第3子無料 適用</span>';
@@ -810,10 +864,11 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
 
       document.getElementById('result').classList.add('show');
       saveInputs();
+      saveGoalResult();
     }
 
     function resetForm() {
-      ['income','age','facilityType','region','months','childOrder'].forEach(k => {
+      ['income','age','facilityType','region','months','childOrder','goalAmount'].forEach(k => {
         const el = document.getElementById(k);
         if (el) el.value = el.tagName === 'SELECT' ? el.options[0]?.value : '';
       });
@@ -828,10 +883,29 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;margin:0!impor
 
     function saveInputs() {
       const d = {};
-      ['income','age','facilityType','region','months','childOrder'].forEach(k => {
+      ['income','age','facilityType','region','months','childOrder','goalAmount'].forEach(k => {
         const el = document.getElementById(k); if (el) d[k] = el.value;
       });
       try { localStorage.setItem('ncalc_v2', JSON.stringify(d)); } catch(e) {}
+    }
+
+    function saveGoalResult() {
+      const goalAmountEl = document.getElementById('goalAmount');
+      const goalAmount = goalAmountEl && goalAmountEl.value ? parseInt(goalAmountEl.value) : 0;
+      if (goalAmount > 0) {
+        const output = document.getElementById('output');
+        const monthlyStr = output?.textContent?.replace(/[^0-9]/g, '') || '0';
+        const monthly = parseInt(monthlyStr) || 0;
+        const achievementRate = Math.round((monthly / goalAmount) * 100);
+        try {
+          localStorage.setItem('ncalc_goal_result', JSON.stringify({
+            goalAmount: goalAmount,
+            monthlyAmount: monthly,
+            prevAchievementRate: achievementRate,
+            timestamp: new Date().toISOString()
+          }));
+        } catch(e) {}
+      }
     }
 
     function copyResultToClipboard() {
@@ -917,7 +991,7 @@ ${detail}
       // 保存済み入力値を復元
       try {
         const saved = JSON.parse(localStorage.getItem('ncalc_v2') || '{}');
-        ['income','age','facilityType','region','months','childOrder'].forEach(k => {
+        ['income','age','facilityType','region','months','childOrder','goalAmount'].forEach(k => {
           const el = document.getElementById(k);
           if (el && saved[k] !== undefined) el.value = saved[k];
         });
@@ -940,9 +1014,31 @@ ${detail}
         if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
       });
       // 入力変更時にリアルタイム計算
-      ['income','age','region','months','childOrder'].forEach(id => {
+      ['income','age','region','months','childOrder','goalAmount'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.addEventListener('input', autoCalculate);
+        if (el) el.addEventListener('input', () => {
+          if (id === 'goalAmount' && document.getElementById('result').classList.contains('show')) {
+            // 既に計算結果がある場合は、達成度を再表示
+            const goalAmount = el.value ? parseInt(el.value) : 0;
+            const output = document.getElementById('output');
+            const monthlyStr = output?.textContent?.replace(/[^0-9]/g, '') || '0';
+            const monthly = parseInt(monthlyStr) || 0;
+            const goalTrackerBox = document.getElementById('goalTrackerBox');
+            if (goalAmount > 0 && goalTrackerBox) {
+              const achievementRate = Math.round((monthly / goalAmount) * 100);
+              document.getElementById('achievementPercent').textContent = Math.min(achievementRate, 100);
+              document.getElementById('achievementBar').style.width = Math.min(achievementRate, 100) + '%';
+              document.getElementById('goalAmountDisplay').textContent = goalAmount.toLocaleString();
+              goalTrackerBox.style.display = 'block';
+              saveInputs();
+            } else {
+              goalTrackerBox.style.display = 'none';
+              saveInputs();
+            }
+          } else {
+            autoCalculate();
+          }
+        });
         if (el) el.addEventListener('change', () => { saveInputs(); autoCalculate(); });
       });
     });
